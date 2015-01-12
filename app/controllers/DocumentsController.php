@@ -45,7 +45,6 @@ class DocumentsController extends \BaseController {
 	{
 		$document = $this->documentRepo->find(Input::get('id'));
 		$manager = new DocumentManager($document,Input::all());
-		dd($manager);
 		$manager->save();
 		return Redirect::route('home');
 	}
@@ -54,5 +53,21 @@ class DocumentsController extends \BaseController {
 	{
 		$document = $this->documentRepo->find($id);
 		return View::make('document.edit',compact('document'));
+	}
+
+	public function imprimir($id)
+	{
+		$data = $this->documentRepo->find($id);
+		$pdf = PDF::loadView('pdf.file', $data);
+		return $pdf->stream('invoice.pdf');
+		//$pdf = App::make('snappy.pdf.wrapper');
+		//$pdf->loadHTML($this->documentRepo->find($id)->body);
+		//return $pdf->stream();
+		//return PDF::loadFile('http://www.github.com')->stream('github.pdf');
+	}
+
+	public function home(){
+		$documents = $this->documentRepo->findAll();
+		return View::make('document.home',compact('documents'));
 	}
 }

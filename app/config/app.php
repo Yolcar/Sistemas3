@@ -124,7 +124,9 @@ return array(
 		'Jacopo\Authentication\AuthenticationServiceProvider',
 		'Way\Generators\GeneratorsServiceProvider',
 		'Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider',
-		'Innaco\Components\FieldServiceProvider'
+		'Innaco\Components\FieldServiceProvider',
+		'Barryvdh\Snappy\ServiceProvider',
+
 
 	),
 
@@ -193,7 +195,9 @@ return array(
 		'Validator'         => 'Illuminate\Support\Facades\Validator',
 		'View'              => 'Illuminate\Support\Facades\View',
 
-		'Field' 			=> 'Innaco\Components\Field'
+		'Field' 			=> 'Innaco\Components\Field',
+		'PDF' => 'Barryvdh\Snappy\Facades\SnappyPdf',
+		'Image' => 'Barryvdh\Snappy\Facades\SnappyImage',
 
 	),
 

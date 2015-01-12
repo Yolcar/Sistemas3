@@ -66,4 +66,46 @@ class WorkflowsController extends \BaseController {
 		return View::make('workflow.show',compact('workflows'));
 	}
 
+	public function home(){
+		$documents = $this->documentRepo->findAll();
+		return View::make('workflow.home',compact('documents'));
+	}
+
+	public function review($id){
+		$workflows = $this->workflowRepo->find($id);
+		return View::make('workflow.review',compact('workflows'));
+	}
+
+	public function validate($id){
+		$workflows = $this->workflowRepo->find($id);
+		return View::make('workflow.validate',compact('workflows'));
+	}
+
+	public function authorization($id){
+		$workflows = $this->workflowRepo->find($id);
+		return View::make('workflow.authorization',compact('workflows'));
+	}
+
+	public function agree($id){
+		$workflows = $this->workflowRepo->find($id);
+		return View::make('workflow.agree',compact('workflows'));
+	}
+
+	public function accept($id){
+		$document = $this->workflowRepo->find($id)->document_id;
+		$user = \Sentry::getUser()->id;
+		DB::table('workflows')->where('id',$id)->where('document_id',$document)->increment('estado_id');
+		DB::table('workflows')->where('id',$id)->where('document_id',$document)->update(array('id_user' => $user));
+		DB::table('workflows')->where('id',$id+1)->increment('estado_id');
+		return Redirect::route('home');
+	}
+
+	public function deny($id){
+		$document = $this->workflowRepo->find($id)->document_id;
+		$user = \Sentry::getUser()->id;
+		DB::table('workflows')->where('id',$id)->where('document_id',$document)->increment('estado_id',2);
+		DB::table('workflows')->where('id',$id)->where('document_id',$document)->update(array('id_user' => $user));
+		return Redirect::route('home');
+	}
+
 }

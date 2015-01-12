@@ -1,15 +1,24 @@
 <div class="col-sm-3 col-md-2 sidebar">
-    <ul class="nav nav-sidebar">
-        <li><a href="{{ route('home') }}">Inicio<span class="sr-only">(current)</span></a></li>
-        <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Documentos<span class="caret"></span></a>
-            <ul class="dropdown-menu" role="menu">
-                @if(\Sentry::getUser()->hasAnyAccess(['_crear-documento']))
-                    <li><a href="{{ route('document.select_template') }}">Crear</a></li>
-                @endif
-                <li><a href="{{ route('document.edit') }}">Editar</a></li>
-                <li class="divider"></li>
-            </ul>
-        </li>
+    <ul class="nav nav-pills">
+        @if(Route::getCurrentRoute()->getPath()=='/')
+            <li role="presentation" class="active"><a href="{{ route('home') }}">Home</a></li>
+        @else
+            <li role="presentation"><a href="{{ route('home') }}">Home</a></li>
+        @endif
+        @if(Route::getCurrentRoute()->getPath()=='document/select-template' or Route::getCurrentRoute()->getPath()=='document/create-document')
+            <li role="presentation" class="active"><a href="{{ route('document.select_template') }}">Crear Documento</a></li>
+        @else
+            <li role="presentation"><a href="{{ route('document.select_template') }}">Crear Documento</a></li>
+        @endif
+        @if(Route::getCurrentRoute()->getPath()=='document/show' or Route::getCurrentRoute()->getPath()=='document/create-document')
+            <li role="presentation" class="active"><a href="{{ route('document.list') }}">Gestionar Documento</a></li>
+        @else
+            <li role="presentation"><a href="{{ route('document.list') }}">Gestionar Documento</a></li>
+        @endif
+        @if(Route::getCurrentRoute()->getPath()=='workflow/show')
+                <li role="presentation" class="active"><a href="{{ route('workflow.list') }}">Tracking</a></li>
+        @else
+            <li role="presentation"><a href="{{ route('workflow.list') }}">Tracking</a></li>
+        @endif
     </ul>
 </div>

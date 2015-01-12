@@ -11,4 +11,8 @@ class Workflow extends \Eloquent {
 	public function estado(){
 		return $this->belongsTo('\Innaco\Entities\Estado','estado_id','id');
 	}
+
+	public function document(){
+		return $this->belongsTo('Innaco\Entities\Document');
+	}
 }

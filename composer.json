@@ -11,7 +11,10 @@
 		"laravel/framework": "4.2.*",
 	  	"jacopo/laravel-authentication-acl": "1.2.*",
 		"barryvdh/laravel-ide-helper": "~1.11",
-	  	"doctrine/dbal": "2.3.5"
+	  	"doctrine/dbal": "2.3.5",
+	  	"h4cc/wkhtmltopdf-amd64": "0.12.x",
+	  	"h4cc/wkhtmltoimage-amd64": "0.12.x",
+	  	"barryvdh/laravel-snappy": "0.1.x"
 	},
 	"autoload": {
 	  "psr-4": {

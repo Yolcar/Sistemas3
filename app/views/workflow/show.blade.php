@@ -36,6 +36,7 @@
                             <td></td>
                         @endif
                         <td>{{$workflow->estado->name}}</td>
+
                     </tr>
                     <br>
                 @elseif($count==3)
