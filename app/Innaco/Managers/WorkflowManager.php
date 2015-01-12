@@ -5,10 +5,10 @@ class WorkflowManager extends BaseManager{
     public function getRules()
     {
         $rules = [
-            'id_permission' => 'required',
+            'document_id' => 'required',
+            'permission' => 'required',
             'id_user' => 'required',
-            'estado' => 'required',
-            'id_document' => 'required'
+            'estado_id' => 'required',
         ];
 
         return $rules;

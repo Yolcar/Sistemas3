@@ -16,11 +16,10 @@ class CreateWorkflowsTable extends Migration {
 		{
 			$table->increments('id');
 
-			$table->integer('id_document');
-			$table->integer('id_permission');
-			$table->integer('next_permission');
+			$table->integer('document_id');
+			$table->text('permission');
 			$table->integer('id_user');
-			$table->integer('estado');
+			$table->integer('estado_id');
 
 			$table->timestamps();
 		});

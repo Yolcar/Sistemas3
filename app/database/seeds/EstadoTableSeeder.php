@@ -7,13 +7,13 @@ class EstadoTableSeeder extends Seeder {
 	public function run()
 	{
 		Estado::create([
+			'name'	=> 'No Disponible',
+		]);
+		Estado::create([
 			'name'	=> 'Pendiente',
 		]);
 		Estado::create([
-			'name'	=> 'Revisado',
-		]);
-		Estado::create([
-			'name'	=> 'Aprobado',
+			'name'	=> 'Listo',
 		]);
 		Estado::create([
 			'name'	=> 'Rechazado',

@@ -12,7 +12,6 @@ class DocumentRepo extends BaseRepo{
     public function newDocument()
     {
         $document = new Document();
-        $document->id_user_create = \Sentry::getUser()->id;
         return $document;
     }
 

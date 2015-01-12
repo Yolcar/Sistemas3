@@ -7,7 +7,8 @@ class DocumentManager extends BaseManager{
     {
         $rules = [
             'name' => 'required',
-            'body' => 'required'
+            'body' => 'required',
+            'type' => 'required'
         ];
 
         return $rules;

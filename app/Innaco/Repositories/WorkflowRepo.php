@@ -14,4 +14,9 @@ class WorkflowRepo extends BaseRepo {
         return $workflow;
     }
 
+    public function findForDocument($id)
+    {
+        return $this->model->where('document_id','=',$id)->get();
+    }
+
 }

@@ -11,13 +11,14 @@
     {{ Form::open(['route' => 'document.save', 'method' => 'POST', 'role' => 'form', 'novalidate']) }}
 
     <h1 class="page-header">Crear Documentos</h1>
+    {{ Field::text('name','',['placeholder' => 'Informacion Documento']) }}
     @if(isset($template))
     @foreach($template as $datos)
-        {{ Field::text('name','',['placeholder' => 'Informacion Documento']) }}
+        {{ Form::hidden('type',$datos->id) }}
         {{ Field::textarea('body',$datos->body, ['class' => 'ckeditor']) }}
     @endforeach
     @else
-    {{ Field::textarea('Nuevo Documento','', ['id' => 'Nuevo Documento'] ) }}
+    {{ Field::textarea('body','',  ['class' => 'ckeditor']) }}
     @endif
 
     <p>

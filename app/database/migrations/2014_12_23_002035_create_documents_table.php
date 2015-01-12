@@ -18,7 +18,8 @@ class CreateDocumentsTable extends Migration {
 
 			$table->string('name');
 			$table->text('body');
-			$table->integer('id_user_create')->unsigned();
+			$table->integer('type');
+			$table->text('observation');
 
 			$table->timestamps();
 		});

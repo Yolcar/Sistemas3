@@ -4,7 +4,9 @@
         <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Documentos<span class="caret"></span></a>
             <ul class="dropdown-menu" role="menu">
-                <li><a href="{{ route('document.select_template') }}">Crear</a></li>
+                @if(\Sentry::getUser()->hasAnyAccess(['_crear-documento']))
+                    <li><a href="{{ route('document.select_template') }}">Crear</a></li>
+                @endif
                 <li><a href="{{ route('document.edit') }}">Editar</a></li>
                 <li class="divider"></li>
             </ul>

@@ -24,9 +24,8 @@ class DocumentsController extends \BaseController {
 	public function create()
 	{
 		$id = Input::only('id');
-		if ($id['id']==='0'){
-			$template = NULL;
-			return View::make('document.create',compact('template'));
+		if ($id['id']== NULL or $id['id']==''){
+			return Redirect::route('home');
 		}
 		$template = $this->templateRepo->find(Input::only('id'));
 		return View::make('document.create',compact('template'));
@@ -37,8 +36,9 @@ class DocumentsController extends \BaseController {
 		$document = $this->documentRepo->newDocument();
 		$manager = new DocumentManager($document,Input::all());
 		$manager->save();
-		$document_id = $document->id;
-		return Redirect::route('workflow.create',compact('document_id'));
+		$id = $document->id;
+		return Redirect::route('workflow.create',compact('id'));
+		//return Redirect::route('workflow.create')->with();
 	}
 
 	public function saveEdit()

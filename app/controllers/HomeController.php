@@ -27,6 +27,8 @@ class HomeController extends BaseController {
 
 	public function index()
 	{
+		//$users = Sentry::findAllUsersWithAccess(array('_sistemas-3'));
+		//dd($users);
 		$documents = $this->documentRepo->findAll();
 		return View::make('home',compact('documents'));
 	}

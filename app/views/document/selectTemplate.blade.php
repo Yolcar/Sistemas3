@@ -17,8 +17,7 @@
             {{ Form::label($template->id, $template->name) }}
             <br>
         @endforeach
-            {{ Form::radio('id', 0, true, array('id'=>0)) }}
-            {{ Form::label(0, 'No Usar Ninguna Plantilla') }}
+
     <p>
         <a href="{{ route('home') }}"><button type="button" class="btn btn-danger">← Atrás</button></a>
         <input type="submit" value="Continuar" class="btn btn-success">

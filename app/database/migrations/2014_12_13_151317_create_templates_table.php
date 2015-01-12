@@ -18,7 +18,11 @@ class CreateTemplatesTable extends Migration {
 
 			$table->string('name');
 			$table->text('body');
-			$table->string('slug');
+			$table->string('create');
+			$table->string('review');
+			$table->string('validate');
+			$table->string('authorization');
+			$table->string('agree');
 
 			$table->timestamps();
 		});

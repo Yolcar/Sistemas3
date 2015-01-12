@@ -24,9 +24,11 @@ Route::group(['before' => 'logged'], function () {
 
     Route::post('document/save-edit-document/{id}', ['as' => 'document.save.edit', 'uses' => 'DocumentsController@saveEdit']);
 
-    Route::get('document/workflow/{id_document}', ['as' => 'workflow.create', 'uses' => 'WorkflowsController@index']);
 
-    Route::post('document/save-workflow', ['as' => 'workflow.save', 'uses' => 'WorkflowsController@create']);
+    Route::get('workflow/{id}/create', ['as' => 'workflow.create', 'uses' => 'WorkflowsController@create']);
+    Route::get('workflow/show/{id}', ['as' => 'workflow.show', 'uses' => 'WorkflowsController@show']);
+    //Route::resource('workflow','WorkflowsController');
+
 
 });
 

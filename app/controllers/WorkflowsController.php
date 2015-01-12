@@ -1,119 +1,69 @@
 <?php
 
 use Innaco\Repositories\WorkflowRepo;
-use Innaco\Repositories\PermisosDocumentoRepo;
 use Innaco\Managers\WorkflowManager;
+use Innaco\Repositories\DocumentRepo;
+use Innaco\Repositories\TemplateRepo;
 
 class WorkflowsController extends \BaseController {
 
 	protected $workflowRepo;
-	protected $permisosDocumentoRepo;
+	protected $documentRepo;
+	protected $templateRepo;
 
-	public function __construct(workflowRepo $workflowRepo,permisosDocumentoRepo $permisosDocumentoRepo )
+	public function __construct(workflowRepo $workflowRepo, documentRepo $documentRepo, templateRepo $templateRepo)
 	{
 		$this->workflowRepo = $workflowRepo;
-		$this->permisosDocumentoRepo = $permisosDocumentoRepo;
+		$this->documentRepo = $documentRepo;
+		$this->templateRepo = $templateRepo;
 	}
 
-	/**
-	 * Display a listing of the resource.
-	 * GET /workflows
-	 *
-	 * @return Response
-	 */
-	public function index($document_id)
+	public function create($id)
 	{
-		$document = $document_id;
-		$permisosDocumentos = $this->permisosDocumentoRepo->findAll();
-		$Users =  array('' => 'Seleccione') + DB::table('users')->lists('email','id');
-		return View::make('workflow.create', compact('permisosDocumentos', 'Users','document'));
-	}
+		$usuario = \Sentry::getUser()->id;
 
-	/**
-	 * Show the form for creating a new resource.
-	 * GET /workflows/create
-	 *
-	 * @return Response
-	 */
-	public function create()
-	{
-		$permisosDocumentos = $this->permisosDocumentoRepo->findAll();
-		foreach ($permisosDocumentos as $permisoDocumento)
-		{
-			$permiso = $permisoDocumento->id;
-			$usuario = Input::get($permiso);
-			$document_id = Input::get('document_id');
+		for ($i = 1; $i <=5; $i++) {
+
+			$type = $this->documentRepo->find($id)->type;
+			$permission = $this->templateRepo->find($type);
 			$arrData = array(
-				'id_permission' => $permiso,
-				'id_user' => $usuario,
-				'id_document' => $document_id,
-				'estado' => 1
+				'document_id' => $id,
+				'permission' => "",
+				'id_user' => 0,
+				'estado_id' => 1
 			);
+			switch ($i){
+				case 1:
+					$arrData['permission'] = $permission->create;
+					$arrData['id_user'] = $usuario;
+					$arrData['estado_id'] = 3;
+					break;
+				case 2:
+					$arrData['permission'] = $permission->review;
+					$arrData['estado_id'] = 2;
+					break;
+				case 3:
+					$arrData['permission'] = $permission->validate;
+					break;
+				case 4:
+					$arrData['permission'] = $permission->authorization;
+					break;
+				case 5:
+					$arrData['permission'] = $permission->agree;
+					break;
+			}
 
 			$workflow = $this->workflowRepo->newWorkflow();
 			$manager = new WorkflowManager($workflow,$arrData);
 			$manager->save();
-		}
+		};
+
 		return Redirect::route('home');
 	}
 
-	/**
-	 * Store a newly created resource in storage.
-	 * POST /workflows
-	 *
-	 * @return Response
-	 */
-	public function store()
-	{
-		//
-	}
-
-	/**
-	 * Display the specified resource.
-	 * GET /workflows/{id}
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function show($id)
-	{
-		//
-	}
-
-	/**
-	 * Show the form for editing the specified resource.
-	 * GET /workflows/{id}/edit
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function edit($id)
-	{
-		//
-	}
-
-	/**
-	 * Update the specified resource in storage.
-	 * PUT /workflows/{id}
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function update($id)
-	{
-		//
-	}
-
-	/**
-	 * Remove the specified resource from storage.
-	 * DELETE /workflows/{id}
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function destroy($id)
-	{
-		//
+	public function show($id){
+		$workflows = $this->workflowRepo->findForDocument($id);
+		return View::make('workflow.show',compact('workflows'));
 	}
 
 }
